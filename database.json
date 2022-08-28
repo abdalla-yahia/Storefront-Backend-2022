@@ -1,0 +1,19 @@
+{
+    "defaultEnv":{"ENV":"Main_Env"},
+    "dev":{
+        "driver":"pg",
+        "user":{"ENV":"Database_user"},
+        "database":{"ENV":"Database_name"},
+        "host":{"ENV":"Database_host"},
+        "port":{"ENV":"Database_port"},
+        "password":{"ENV":"Database_password"}
+    },
+    "test":{
+        "driver":"pg",
+        "user":{"ENV":"Database_user"},
+        "database":{"ENV":"Database_name_test"},
+        "host":{"ENV":"Database_host"},
+        "port":{"ENV":"Database_port"},
+        "password":{"ENV":"Database_password"}
+    }
+}
