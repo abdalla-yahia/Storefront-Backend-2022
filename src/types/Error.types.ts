@@ -1,4 +1,4 @@
-interface Error {
+type Error = {
     message?: string,
     name?: string,
     stack?: string,

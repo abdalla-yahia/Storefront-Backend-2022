@@ -11,7 +11,7 @@ export const CreateNewUser = async (req: Request, res: Response, next: NextFunct
     try {
         const newuser = await user.createUser(req.body)
         res.json({
-            state: "Success",
+            state: "Well Done Creating A New User Done Perfectly 😍",
             data:{...newuser}
         })
     } catch (error) {
@@ -25,7 +25,7 @@ export const GetAllUsers = async (req: Request, res: Response, next: NextFunctio
         const size =[...getallusers].length;
         if (size > 0) {
             res.json({
-                state: "Success",
+                state: "Thye Are All Users Found 😊",
                 data:{...getallusers}
             })
         } else {
@@ -42,7 +42,7 @@ export const UpdateUser = async (req: Request, res: Response, next: NextFunction
     try {
         const UpUser = await user.updateteUser(req.body)
         res.json({
-            state: "Success",
+            state: "Good Jop ..Update User Done. 👍",
             data:{...UpUser}
         })
     } catch (error) {
@@ -54,8 +54,7 @@ export const DeleteUser = async (req: Request, res: Response, next: NextFunction
     try {
         const DelUser = await user.deleteUser(req.params)
         res.json({
-            state: "Success Deleted user",
-            data:{...DelUser}
+            state: "Success Deleted user 😀",
         })
     } catch (error) {
         next(error)
@@ -66,8 +65,7 @@ export const DeleteAllUser = async (_req: Request, res: Response, next: NextFunc
     try {
         const DelAllUser = await user.deleteAllUser()
         res.json({
-            state: "Success Deleted user",
-            data:{...DelAllUser}
+            state: "All Users Deleted Successfully 😊",
         })
     } catch (error) {
         next(error)
