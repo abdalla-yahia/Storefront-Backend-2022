@@ -8,12 +8,15 @@ router
 	.route("/user")
 	.post(AuthanticateMiddleware, userControl.CreateNewUser)
 	.get(AuthanticateMiddleware, userControl.GetAllUsers)
-	.put(AuthanticateMiddleware, userControl.UpdateUser)
 	.delete(AuthanticateMiddleware, userControl.DeleteAllUser);
-
-router
+	
+	router
 	.route("/user/:id")
+	.get(AuthanticateMiddleware, userControl.GeteUser)
+	.put(AuthanticateMiddleware, userControl.UpdateUser)
 	.delete(AuthanticateMiddleware, userControl.DeleteUser);
+
+	
 router.post("/user/auth", AuthanticateMiddleware, userControl.AuthanticateUser);
 
 export default router;

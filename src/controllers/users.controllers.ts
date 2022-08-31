@@ -25,7 +25,7 @@ export const GetAllUsers = async (req: Request, res: Response, next: NextFunctio
         const size =[...getallusers].length;
         if (size > 0) {
             res.json({
-                state: "Thye Are All Users Found 😊",
+                state: "They Are All Users Found 😊",
                 data:{...getallusers}
             })
         } else {
@@ -40,7 +40,7 @@ export const GetAllUsers = async (req: Request, res: Response, next: NextFunctio
 //Update User
 export const UpdateUser = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const UpUser = await user.updateteUser(req.body)
+        const UpUser = await user.updateteUser(req.body, req.params.id)
         res.json({
             state: "Good Jop ..Update User Done. 👍",
             data:{...UpUser}
@@ -49,12 +49,32 @@ export const UpdateUser = async (req: Request, res: Response, next: NextFunction
         next(error)
     }
 }
+//Get User By Id
+export const GeteUser = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const GetUser = await user.geteUser(req.params.id)
+        if ([...GetUser].length > 0) {
+            
+            res.json({
+                state: "Successflly Gitting user 😀",
+                data:{...GetUser}
+            })
+        } else {
+            res.json({
+                message:"Not Found Any User Match This ID 🙂"
+            })
+        }
+    } catch (error) {
+        next(error)
+    }
+}
 //Delete User
 export const DeleteUser = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const DelUser = await user.deleteUser(req.params)
+        const DelUser = await user.deleteUser(req.params.id)
         res.json({
             state: "Success Deleted user 😀",
+            data:{...DelUser}
         })
     } catch (error) {
         next(error)

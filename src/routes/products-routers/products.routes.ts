@@ -8,14 +8,13 @@ router
 	.route("/product")
 	.post(AuthanticateMiddleware, control.CreatProduct)
 	.get(AuthanticateMiddleware, control.GetAllProducts)
-	.put(AuthanticateMiddleware, control.UpdateSpecificProducts)
 	.delete(AuthanticateMiddleware, control.DeleteAllProducts);
 
 router
 	.route("/product/:id")
 	.delete(AuthanticateMiddleware, control.DeleteSpecificProduct)
-	.get(AuthanticateMiddleware, control.GetSpecificProduct);
-
+	.get(AuthanticateMiddleware, control.GetSpecificProduct)
+	.put(AuthanticateMiddleware, control.UpdateSpecificProducts);
 router.get("/sort", AuthanticateMiddleware, control.SortProducts);
 
 

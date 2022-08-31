@@ -86,7 +86,7 @@ export const DeleteAllProducts = async (req: Request, res: Response, next: NextF
 // Update Specific Product 
 export const UpdateSpecificProducts = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const updateProduct = await pro.updatespecificProduct(req.body)
+        const updateProduct = await pro.updatespecificProduct(req.body,req.params.id)
             res.json({
                 state:"Success ",
                 message: "Updated Operation Successflly 🙂",

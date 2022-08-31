@@ -64,7 +64,7 @@ export default class productsModels {
 		}
 	}
 	//Update Specific Product
-	async updatespecificProduct(p:product) : Promise<product[]> {
+	async updatespecificProduct(p:product, id:string) : Promise<product[]> {
 		try {
 			const connection = await db.connect();
 			const sql = "UPDATE products SET name =$1, price=$2, category =$3   WHERE id = $4 RETURNING *";
@@ -72,7 +72,7 @@ export default class productsModels {
                 p.name,
                 p.price,
                 p.category,
-                p.id
+                id
             ]);
 			connection.release();
 			return resault.rows;

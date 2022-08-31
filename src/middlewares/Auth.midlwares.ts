@@ -17,6 +17,7 @@ const AuthanticateMiddleware = async (req: Request, res: Response, next: NextFun
         if (token && Barer === "Bearer") {
             const returnjwt =jwt.verify(token, config.token as string) 
             if (returnjwt) {
+                console.log(returnjwt);
                 next()
             } else {
                 errHandelling(next);

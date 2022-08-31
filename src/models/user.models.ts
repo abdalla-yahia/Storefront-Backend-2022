@@ -42,7 +42,7 @@ export default class UsersModels {
     }
 
     //Update  User
-    async updateteUser(u: users): Promise<users> {
+    async updateteUser(u: users ,id:string): Promise<users> {
         try {
             const conn = await db.connect();
             const sql =
@@ -51,7 +51,7 @@ export default class UsersModels {
                 u.firstName,
                 u.lastName,
                 bcrybtpassword(u.password as string),
-                u.id,
+                id
             ]);
             conn.release();
             return resault.rows[0];
@@ -60,12 +60,24 @@ export default class UsersModels {
         }
     }
 
-    //Delete User
-    async deleteUser(u: users): Promise<users[]> {
+    //Get User By Id
+    async geteUser(id:string): Promise<users[]> {
         try {
             const conn = await db.connect();
-            const sql = "DELETE FROM users  WHERE id = $1 ";
-            const resault = await conn.query(sql, [u.id]);
+            const sql = "SELECT * FROM users  WHERE id = $1";
+            const resault = await conn.query(sql, [id ]);
+            conn.release();
+            return resault.rows;
+        } catch (error) {
+            throw new Error("Opps .. Can Not Get This User 😲");
+        }
+    };
+    //Delete User
+    async deleteUser(id : string): Promise<users[]>{
+        try {
+            const conn = await db.connect();
+            const sql = "DELETE FROM users WHERE id = $1 RETURNING *"
+            const resault = await conn.query(sql, [id]);
             conn.release();
             return resault.rows;
         } catch (error) {
@@ -89,32 +101,32 @@ export default class UsersModels {
     async AuthanticateUsers(
         password: string,
         firstName: string,
-    ){
-		try {
-			const conn = await db.connect();
-			const sql = "SELECT password FROM users WHERE firstName = $1";
-			const results = conn.query(sql, [firstName]);
-			if ((await results).rows.length) {
-				const { password: bcrybtpassword } = (await results).rows[0];
-				const validationpass = BCrypt.compareSync(
-					password + config.pp,
-					bcrybtpassword,
-				);
-				if (validationpass) {
-					const Filnalresault = conn.query(
-						"SELECT * FROM users WHERE firstName = $1",
-						[firstName],
-					);
-					conn.release();
-					return (await Filnalresault).rows[0];
-				} else {
-					throw new Error();
-				}
-			} else {
-				throw new Error();
-			}
-		} catch (error) {
-			throw new Error("Opps .. This User Or Password Is Not Valid Please try again later 😲");
-		}
-	}
+        ){
+            try {
+                const conn = await db.connect();
+                const sql = "SELECT password FROM users WHERE firstName = $1";
+                const results = conn.query(sql, [firstName]);
+                if ((await results).rows.length) {
+                    const { password: bcrybtpassword } = (await results).rows[0];
+                    const validationpass = BCrypt.compareSync(
+                        password + config.pp,
+                        bcrybtpassword,
+                    );
+                    if (validationpass) {
+                        const Filnalresault = conn.query(
+                            "SELECT * FROM users WHERE firstName = $1",
+                            [firstName],
+                        );
+                        conn.release();
+                        return (await Filnalresault).rows[0];
+                    } else {
+                        throw new Error();
+                    }
+                } else {
+                    throw new Error();
+                }
+            } catch (error) {
+                throw new Error("Opps .. This User Or Password Is Not Valid Please try again later 😲");
+            }
+        }
 }
