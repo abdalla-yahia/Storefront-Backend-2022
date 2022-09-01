@@ -1,6 +1,5 @@
 
 import db from '../databases/database';
-import users from '../types/user.types';
 import product from '../types/product.types';
 import order from '../types/Order.types';
 

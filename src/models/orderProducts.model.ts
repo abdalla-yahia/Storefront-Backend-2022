@@ -1,18 +1,18 @@
-import order from "../types/Order.types";
+
 import db from '../databases/database';
 import orderProducts from '../types/orderProducts.types';
 
 
 export default class OrderProducts {
+    //Create A New OrderProducts
     async createOrderProducts(or:orderProducts): Promise<orderProducts[]> {
         try {
             const conn = await db.connect()
-            const sql = "INSERT INTO orderProducts (quantity,order_id,product_id,users_id) VALUES ($1,$2,$3,$4) RETURNING *";
+            const sql = "INSERT INTO orderProducts (quantity,order_id,product_id) VALUES ($1,$2,$3) RETURNING *";
             const res = await conn.query(sql, [
                 or.quantity,
                 or.order_id,
                 or.product_id,
-                or.user_id
             ])
             conn.release()
             return res.rows
@@ -20,29 +20,42 @@ export default class OrderProducts {
             throw new Error('Cant Create OrderProducts ')
         }
     }
-
-    async getOrderProducts(id:string): Promise<orderProducts[]> {
+    //Get OrderProducts
+    async getOrderProducts() {
         try {
             const conn = await db.connect()
-            const sql = 'SELECT * FROM products INNER JOIN orderProducts ON products.id = orderProducts.product_id WHERE orderProducts.id=$1'
-            const res = await conn.query(sql,[id])
-
+            const sql = ['SELECT name, price, category, order_id,product_id FROM products JOIN orderProducts ON products.id = orderProducts.product_id', ' SELECT order_name, order_status,user_id,orders.quantity FROM orders INNER JOIN orderProducts ON orders.id = orderProducts.order_id ']
+            const res = await conn.query(sql[0])
+            const res1 = await conn.query(sql[1])
             conn.release()
-            return res.rows
+            const resault = [...res.rows, ...res1.rows];
+            return  resault
         } catch (error) {
             throw new Error('Cant Get OrderProducts ')
         }
     }
+    
     async getAllOrderProducts(): Promise<orderProducts[]> {
         try {
             const conn = await db.connect()
             const sql = 'SELECT * FROM products INNER JOIN orderProducts ON products.id = orderProducts.product_id '
             const res = await conn.query(sql)
-
             conn.release()
             return res.rows
         } catch (error) {
             throw new Error('Cant Get Any OrderProducts ')
+        }
+    }
+
+    async deleteAllOrderProducts(): Promise<orderProducts[]> {
+        try {
+            const conn = await db.connect()
+            const sql = 'DELETE FROM orderProducts RETURNING * '
+            const res = await conn.query(sql)
+            conn.release()
+            return res.rows
+        } catch (error) {
+            throw new Error('Cant Delete All OrderProducts ')
         }
     }
 }
