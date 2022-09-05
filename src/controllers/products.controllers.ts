@@ -100,12 +100,19 @@ export const UpdateSpecificProducts = async (req: Request, res: Response, next: 
 // Sort  Products 
 export const SortProducts = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const sortProduct = await pro.sortProducts(req.body.category)
+        const sortProduct = await pro.sortProducts(req.params.category)
+        if ([...sortProduct].length > 0) {
+            
             res.json({
                 state:"Success ",
-                message: "Sorting Operation Successflly 🙂",
+                message: "Sorting Operation Successflly Done 🙂",
                 data:{...sortProduct}
             })
+        } else {
+            res.json({
+                message:'Sorry Not Found Any Thing Try Againe ☹️'
+            })
+        }
     } catch (error) {
         next(error)
     }

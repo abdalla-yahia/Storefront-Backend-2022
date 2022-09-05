@@ -15,7 +15,7 @@ router
 	.delete(AuthanticateMiddleware, control.DeleteSpecificProduct)
 	.get(AuthanticateMiddleware, control.GetSpecificProduct)
 	.put(AuthanticateMiddleware, control.UpdateSpecificProducts);
-router.get("/sort", AuthanticateMiddleware, control.SortProducts);
+router.get("/product/sort/:category", AuthanticateMiddleware, control.SortProducts);
 
 
 export default router;

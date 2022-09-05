@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from "express";
 import OrderProducts from "../models/orderProducts.model";
 
 const orPro = new OrderProducts()
-
+//Create New OrderProducts
 export const CreateOrderProducts = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const createorderPro = await orPro.createOrderProducts(req.body)
@@ -27,10 +27,10 @@ export const GetOrderProducts = async (req: Request, res: Response, next: NextFu
         const getorderPro = await orPro.getOrderProducts(req.params.id)
         if ([...getorderPro].length > 0) {
             const data = { ...getorderPro }
-            const fdata = { ...data[1],...data[0]}
+            const fdata = { ...data[1], ...data[0]}
             res.json({
                 state: "Done",
-                data:fdata
+                data: { ...fdata }
             })
         } else {
             res.json({
@@ -45,9 +45,9 @@ export const GetOrderProducts = async (req: Request, res: Response, next: NextFu
 export const DeleteOrderProducts = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const delorderPro = await orPro.deleteOrderProducts(req.params.id)
-        if ([delorderPro].length > 0) {
+        if ([...delorderPro].length > 0) {
             res.json({
-                state: "Deleted OrderProducts Done",
+                state: "Deleted OrderProducts Done Successfly 👍",
                 data:{...delorderPro}
             })
         } else {

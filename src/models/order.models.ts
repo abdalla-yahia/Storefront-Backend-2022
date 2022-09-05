@@ -23,13 +23,13 @@ import order from '../types/Order.types';
             }
         }
         //Get  Orders of User
-        async getOrderOfUser(id:string): Promise<order> {
+        async getOrderOfUser(id:string): Promise<order[]> {
             try {
                 const conn = await db.connect();
                 const sql = "SELECT firstName, lastName, quantity, order_status FROM users INNER JOIN orders ON users.id=orders.user_id WHERE users.id = $1";
                 const result = await conn.query(sql,[id])
                 conn.release()
-                return result.rows[0]
+                return result.rows
             } catch (error) {
                 throw new Error('Cant Get User ')
             }
