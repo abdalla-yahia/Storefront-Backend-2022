@@ -3,7 +3,7 @@ import OrderProducts from "../models/orderProducts.model";
 
 const orPro = new OrderProducts()
 //Create New OrderProducts
-export const CreateOrderProducts = async (req: Request, res: Response, next: NextFunction) => {
+    const CreateOrderProducts = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const createorderPro = await orPro.createOrderProducts(req.body)
         if ([createorderPro].length > 0) {
@@ -22,7 +22,7 @@ export const CreateOrderProducts = async (req: Request, res: Response, next: Nex
     }
 }
 //Get OrderProducts 
-export const GetOrderProducts = async (req: Request, res: Response, next: NextFunction) => {
+    const GetOrderProducts = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const getorderPro = await orPro.getOrderProducts(req.params.id)
         if ([...getorderPro].length > 0) {
@@ -42,7 +42,7 @@ export const GetOrderProducts = async (req: Request, res: Response, next: NextFu
     }
 }
 //Delete OrderProducts 
-export const DeleteOrderProducts = async (req: Request, res: Response, next: NextFunction) => {
+    const DeleteOrderProducts = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const delorderPro = await orPro.deleteOrderProducts(req.params.id)
         if ([...delorderPro].length > 0) {
@@ -60,7 +60,7 @@ export const DeleteOrderProducts = async (req: Request, res: Response, next: Nex
     }
 }
 //Delete All OrderProducts
-export const DeleteAllOrderProducts = async (_req: Request, res: Response, next: NextFunction) => {
+    const DeleteAllOrderProducts = async (_req: Request, res: Response, next: NextFunction) => {
     try {
         const delorderPro = await orPro.deleteAllOrderProducts()
         res.json({
@@ -73,7 +73,7 @@ export const DeleteAllOrderProducts = async (_req: Request, res: Response, next:
 }
 
 //Get All OrderProducts
-export const GetAllOrderProducts = async (_req: Request, res: Response, next: NextFunction) => {
+    const GetAllOrderProducts = async (_req: Request, res: Response, next: NextFunction) => {
     try {
         const getorderPro = await orPro.getAllOrderProducts()
         if ([...getorderPro].length > 0) {
@@ -90,4 +90,12 @@ export const GetAllOrderProducts = async (_req: Request, res: Response, next: Ne
     } catch (error) {
         next(error)
     }
+}
+
+export default {
+    GetAllOrderProducts,
+    DeleteAllOrderProducts,
+    DeleteOrderProducts,
+    GetOrderProducts,
+    CreateOrderProducts
 }

@@ -6,7 +6,7 @@ import productsModel from '../models/products.models';
 const pro =new productsModel()
 
 //Creat A New Product
-export const CreatProduct = async (req: Request, res: Response, next: NextFunction) => {
+    const CreatProduct = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const newProduct = await pro.creatProduct(req.body);
         res.json({
@@ -20,7 +20,7 @@ export const CreatProduct = async (req: Request, res: Response, next: NextFuncti
 }
 
 // Get All Products 
-export const GetAllProducts = async (req: Request, res: Response, next: NextFunction) => {
+    const GetAllProducts = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const getAllPro = await pro.getAllProduct()
         const size = Object.keys(getAllPro as object).length;
@@ -41,7 +41,7 @@ export const GetAllProducts = async (req: Request, res: Response, next: NextFunc
 }
 
 // Get Specific Product 
-export const GetSpecificProduct = async (req: Request, res: Response, next: NextFunction) => {
+    const GetSpecificProduct = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const getPro = await pro.getSpecificProduct(req.params.id)
         if ([getPro].length > 0) {
@@ -58,7 +58,7 @@ export const GetSpecificProduct = async (req: Request, res: Response, next: Next
     }
 }
 // DELETE Specific Product 
-export const DeleteSpecificProduct = async (req: Request, res: Response, next: NextFunction) => {
+    const DeleteSpecificProduct = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const delPro = await pro.deleteSpecificProduct(req.params.id)
             res.json({
@@ -71,7 +71,7 @@ export const DeleteSpecificProduct = async (req: Request, res: Response, next: N
     }
 }
 // DELETE All Product 
-export const DeleteAllProducts = async (req: Request, res: Response, next: NextFunction) => {
+    const DeleteAllProducts = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const delAllPro = await pro.deleteAllProducts()
         res.json({
@@ -85,7 +85,7 @@ export const DeleteAllProducts = async (req: Request, res: Response, next: NextF
 }
 
 // Update Specific Product 
-export const UpdateSpecificProducts = async (req: Request, res: Response, next: NextFunction) => {
+    const UpdateSpecificProducts = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const updateProduct = await pro.updatespecificProduct(req.body,req.params.id)
             res.json({
@@ -98,7 +98,7 @@ export const UpdateSpecificProducts = async (req: Request, res: Response, next: 
     }
 }
 // Sort  Products 
-export const SortProducts = async (req: Request, res: Response, next: NextFunction) => {
+    const SortProducts = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const sortProduct = await pro.sortProducts(req.params.category)
         if ([...sortProduct].length > 0) {
@@ -116,4 +116,14 @@ export const SortProducts = async (req: Request, res: Response, next: NextFuncti
     } catch (error) {
         next(error)
     }
+}
+
+export default {
+    SortProducts,
+    UpdateSpecificProducts,
+    DeleteAllProducts,
+    DeleteSpecificProduct,
+    GetSpecificProduct,
+    GetAllProducts,
+    CreatProduct
 }

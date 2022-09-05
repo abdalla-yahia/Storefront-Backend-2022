@@ -4,7 +4,7 @@ import order from '../types/Order.types';
 
 const order = new OrdersModels()
 //Create New Order
-export const CreateOrder = async (req: Request, res: Response, next: NextFunction) => {
+    const CreateOrder = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const getorder = await order.createOrder(req.body)
             res.json({
@@ -17,7 +17,7 @@ export const CreateOrder = async (req: Request, res: Response, next: NextFunctio
     }
 }
 //Get Specific orders of Specific User
-export const GetOrderOfUser = async (req: Request, res: Response, next: NextFunction) => {
+    const GetOrderOfUser = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const getorder = await order.getOrderOfUser(req.params.id as string)
         if ([getorder].length > 0) {
@@ -37,7 +37,7 @@ export const GetOrderOfUser = async (req: Request, res: Response, next: NextFunc
     }
 }
 //Delete All order of All Users
-export const DeleteOrder = async (req: Request, res: Response, next: NextFunction) => {
+    const DeleteOrder = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const delorder = await order.deleteOrder()
             res.json({
@@ -50,7 +50,7 @@ export const DeleteOrder = async (req: Request, res: Response, next: NextFunctio
     }
 }
 //Get All Orders
-export const GetAllOrders = async (req: Request, res: Response, next: NextFunction) => {
+    const GetAllOrders = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const getAllorder = await order.getAllOrder()
         if ([...getAllorder].length > 0) {
@@ -70,7 +70,7 @@ export const GetAllOrders = async (req: Request, res: Response, next: NextFuncti
     }
 }
 //Delete Specific Order by its id
-export const DeleteSpecificOrder = async (req: Request, res: Response, next: NextFunction) => {
+    const DeleteSpecificOrder = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const delSporder = await order.deleteSpecificOrder(req.params.id)
         if ([...delSporder].length > 0) {
@@ -90,7 +90,7 @@ export const DeleteSpecificOrder = async (req: Request, res: Response, next: Nex
     }
 }
 //Update Specific Order by its id
-export const UpdateSpecificOrder = async (req: Request, res: Response, next: NextFunction) => {
+    const UpdateSpecificOrder = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const Updateorder = await order.updateSpecificOrder(req.body,req.params.id)
         if (req.body.order_status == "open") {
@@ -108,4 +108,13 @@ export const UpdateSpecificOrder = async (req: Request, res: Response, next: Nex
     } catch (error) {
         next(error)
     }
+}
+
+export default {
+    UpdateSpecificOrder,
+    DeleteSpecificOrder,
+    GetAllOrders,
+    DeleteOrder,
+    GetOrderOfUser,
+    CreateOrder
 }

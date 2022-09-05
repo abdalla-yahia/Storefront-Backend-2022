@@ -6,14 +6,14 @@ const router = Router()
 
 
 router.route('/order')
-    .get(orderControl.GetAllOrders)
-    .post(AuthanticateMiddleware, orderControl.CreateOrder)
-    .delete(orderControl.DeleteOrder);
+    .get(AuthanticateMiddleware,orderControl.default.GetAllOrders)
+    .post(AuthanticateMiddleware, orderControl.default.CreateOrder)
+    .delete(AuthanticateMiddleware,orderControl.default.DeleteOrder);
     
 router.route('/order/:id')
-    .get(orderControl.GetOrderOfUser)
-    .delete(orderControl.DeleteSpecificOrder)
-    .put(orderControl.UpdateSpecificOrder);
+    .get(AuthanticateMiddleware,orderControl.default.GetOrderOfUser)
+    .delete(AuthanticateMiddleware,orderControl.default.DeleteSpecificOrder)
+    .put(AuthanticateMiddleware,orderControl.default.UpdateSpecificOrder);
 
 
 export default router;

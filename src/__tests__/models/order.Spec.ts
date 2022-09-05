@@ -61,7 +61,7 @@ describe("Test Crud Operation of  orders Model", () => {
     it('test update order', async () => {
         const updateorder = await orderModels.updateSpecificOrder(o2,o.id as string);
         expect(updateorder.order_name).toBe(o2.order_name)
-      
+    
     })
     it('test get All  orders', async () => {
         const getAllorders = await orderModels.getAllOrder();

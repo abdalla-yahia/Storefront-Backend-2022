@@ -1,35 +1,23 @@
-import jwt from 'jsonwebtoken';
 import { Request, Response, NextFunction } from 'express';
-import Error from '../types/Error.types';
 import config from '../configration';
+import jwt from 'jsonwebtoken';
 
-
-const errHandelling = (next: NextFunction) => {
-    const err: Error = new Error('Sorry Your UserName Or Password is Not Valid to Login  And Use This Service');
-    err.state = 401
-    return next(err)
-}
 const AuthanticateMiddleware = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const auth = req.get('Authorization');
-        if (auth) {
-            const Barer = auth?.split(" ")[0]
-            const token = auth?.split(" ")[1]
-            if (token && Barer === "Bearer") {
-                const returnjwt = jwt.verify(token, config.token as string)
-                if (returnjwt) {
-                    next()
-                } else {
-                    errHandelling(next);
-                }
-            } else {
-                errHandelling(next)
-            }
+        const token = auth?.split(" ")[1]
+        const returnjwt = jwt.verify(token as string, config.token as string)
+        if (returnjwt) {
+            next()
         } else {
-            errHandelling(next)
+            res.json({
+                message: 'Sorry Your Email Or Password Is Not Valied 😶'
+            });
         }
     } catch (error) {
-        errHandelling(next)
+        res.json({
+                message: 'Sorry Your Email Or Password Is Not Valied 😶'
+            });
     }
 }
 export default AuthanticateMiddleware;

@@ -7,7 +7,7 @@ import config from '../configration';
 //${newuser[0].firstname} ${newuser[0].lastname}
 const user = new UsersModels()
 //Create A New User
-export const CreateNewUser = async (req: Request, res: Response, next: NextFunction) => {
+    const CreateNewUser = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const newuser = await user.createUser(req.body)
         res.json({
@@ -19,7 +19,7 @@ export const CreateNewUser = async (req: Request, res: Response, next: NextFunct
     }
 }
 //Get All Users
-export const GetAllUsers = async (req: Request, res: Response, next: NextFunction) => {
+    const GetAllUsers = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const getallusers = await user.getAllUsers()
         const size =[...getallusers].length;
@@ -38,7 +38,7 @@ export const GetAllUsers = async (req: Request, res: Response, next: NextFunctio
     }
 }
 //Update User
-export const UpdateUser = async (req: Request, res: Response, next: NextFunction) => {
+    const UpdateUser = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const UpUser = await user.updateteUser(req.body, req.params.id)
         res.json({
@@ -50,7 +50,7 @@ export const UpdateUser = async (req: Request, res: Response, next: NextFunction
     }
 }
 //Get User By Id
-export const GeteUser = async (req: Request, res: Response, next: NextFunction) => {
+    const GeteUser = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const GetUser = await user.geteUser(req.params.id)
         if ([...GetUser].length > 0) {
@@ -69,7 +69,7 @@ export const GeteUser = async (req: Request, res: Response, next: NextFunction) 
     }
 }
 //Delete User
-export const DeleteUser = async (req: Request, res: Response, next: NextFunction) => {
+    const DeleteUser = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const DelUser = await user.deleteUser(req.params.id)
         res.json({
@@ -81,7 +81,7 @@ export const DeleteUser = async (req: Request, res: Response, next: NextFunction
     }
 }
 //Delete All User
-export const DeleteAllUser = async (_req: Request, res: Response, next: NextFunction) => {
+    const DeleteAllUser = async (_req: Request, res: Response, next: NextFunction) => {
     try {
         const DelAllUser = await user.deleteAllUser()
         res.json({
@@ -93,7 +93,7 @@ export const DeleteAllUser = async (_req: Request, res: Response, next: NextFunc
     }
 }
 //Authantication User
-export const AuthanticateUser = async (req: Request, res: Response, next: NextFunction) => {
+    const AuthanticateUser = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const { password, email } =req.body
         const auth = await user.AuthanticateUsers(password, email)
@@ -112,3 +112,15 @@ export const AuthanticateUser = async (req: Request, res: Response, next: NextFu
         next(error)
     }
 }
+
+export default {
+    AuthanticateUser,
+    DeleteAllUser,
+    DeleteUser,
+    GeteUser,
+    UpdateUser,
+    GetAllUsers,
+    CreateNewUser
+}
+
+

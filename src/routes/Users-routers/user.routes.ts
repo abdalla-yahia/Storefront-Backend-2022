@@ -6,17 +6,17 @@ const router = Router();
 
 router
 	.route("/user")
-	.post(userControl.CreateNewUser)
-	.get(AuthanticateMiddleware, userControl.GetAllUsers)
-	.delete(AuthanticateMiddleware, userControl.DeleteAllUser);
+	.post(userControl.default.CreateNewUser)
+	.get(AuthanticateMiddleware, userControl.default.GetAllUsers)
+	.delete(AuthanticateMiddleware, userControl.default.DeleteAllUser);
 	
 	router
 	.route("/user/:id")
-	.get(AuthanticateMiddleware, userControl.GeteUser)
-	.put(AuthanticateMiddleware, userControl.UpdateUser)
-	.delete(AuthanticateMiddleware, userControl.DeleteUser);
+	.get(AuthanticateMiddleware, userControl.default.GeteUser)
+	.put(AuthanticateMiddleware, userControl.default.UpdateUser)
+	.delete(AuthanticateMiddleware, userControl.default.DeleteUser);
 
 	
-router.post("/login",userControl.AuthanticateUser);
+router.post("/login",userControl.default.AuthanticateUser);
 
 export default router;
