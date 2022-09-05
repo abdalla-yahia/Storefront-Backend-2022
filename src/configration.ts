@@ -20,11 +20,12 @@ const {
 
 
 export default {
+	ENV:Main_Env,
 	ad_port: PORT,
 	user: Database_user,
 	host: Database_host,
 	port: parseInt(Database_port as string),
-	database: Main_Env == "dev" ? Database_name : Database_name_test,
+	database: Main_Env == 'dev' ? Database_name :  Database_name_test,
 	password: Database_password,
 	pp: Bcrypt_password,
 	salt: Salt,

@@ -2,6 +2,6 @@ type Error = {
     message?: string,
     name?: string,
     stack?: string,
-    status?:number
+    state?:number
 }
 export default Error;

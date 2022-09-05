@@ -6,7 +6,7 @@ const router = Router();
 
 router
 	.route("/user")
-	.post(AuthanticateMiddleware, userControl.CreateNewUser)
+	.post(userControl.CreateNewUser)
 	.get(AuthanticateMiddleware, userControl.GetAllUsers)
 	.delete(AuthanticateMiddleware, userControl.DeleteAllUser);
 	
@@ -17,6 +17,6 @@ router
 	.delete(AuthanticateMiddleware, userControl.DeleteUser);
 
 	
-router.post("/user/auth", AuthanticateMiddleware, userControl.AuthanticateUser);
+router.post("/login",userControl.AuthanticateUser);
 
 export default router;

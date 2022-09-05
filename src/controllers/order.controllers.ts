@@ -1,6 +1,5 @@
 import OrdersModels from "../models/order.models";
-import { Router, Request, Response, NextFunction } from "express";
-import users from '../types/user.types';
+import {  Request, Response, NextFunction } from "express";
 import order from '../types/Order.types';
 
 const order = new OrdersModels()
@@ -21,7 +20,7 @@ export const CreateOrder = async (req: Request, res: Response, next: NextFunctio
 export const GetOrderOfUser = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const getorder = await order.getOrderOfUser(req.params.id as string)
-        if ([...getorder].length > 0) {
+        if ([getorder].length > 0) {
             
             res.json({
                 state: `This Is The Order Of User `,
@@ -43,13 +42,14 @@ export const DeleteOrder = async (req: Request, res: Response, next: NextFunctio
         const delorder = await order.deleteOrder()
             res.json({
                 state: `Delete Order Done.. `,
-                
+                data:{...delorder}
             })
         
     } catch (error) {
         next(error)
     }
 }
+//Get All Orders
 export const GetAllOrders = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const getAllorder = await order.getAllOrder()
@@ -82,6 +82,26 @@ export const DeleteSpecificOrder = async (req: Request, res: Response, next: Nex
         } else {
             res.json({
                 message:"Not Found Any Orders Match this id 🙃"
+            })
+        }
+        
+    } catch (error) {
+        next(error)
+    }
+}
+//Update Specific Order by its id
+export const UpdateSpecificOrder = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const Updateorder = await order.updateSpecificOrder(req.body,req.params.id)
+        if (req.body.order_status == "open") {
+            
+            res.json({
+                state: `Great Jop Update Order Successflly 😻`,
+                data:{...Updateorder}
+            })
+        } else {
+            res.json({
+                message:"Sorry Time Out to Update This Order 🙃"
             })
         }
         

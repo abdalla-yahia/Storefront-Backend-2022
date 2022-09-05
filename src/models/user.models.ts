@@ -12,14 +12,15 @@ function bcrybtpassword(pass: string){
 
 export default class UsersModels {
     //Create A New User
-    async createUser(u: users): Promise<users | null> {
+    async createUser(u: users) {
         try {
             const conn = await db.connect();
             const sql =
-                "INSERT INTO users(firstName,lastName, password) VALUES ($1, $2, $3) RETURNING firstName , lastName ";
-            const resault = await conn.query(sql, [
-                u.firstName,
-                u.lastName,
+                "INSERT INTO users(firstname,lastname, email,password) VALUES ($1, $2, $3, $4) RETURNING *";
+                const resault = await conn.query(sql, [
+                u.firstname,
+                u.lastname,
+                u.email,
                 bcrybtpassword(u.password as string),
             ]);
             conn.release();
@@ -46,10 +47,11 @@ export default class UsersModels {
         try {
             const conn = await db.connect();
             const sql =
-                "UPDATE users SET firstName= $1,lastName=$2, password=$3 WHERE id = $4 RETURNING * ";
+                "UPDATE users SET firstname= $1,lastname=$2, email=$3,password=$4 WHERE id = $5 RETURNING * ";
             const resault = await conn.query(sql, [
-                u.firstName,
-                u.lastName,
+                u.firstname,
+                u.lastname,
+                u.email,
                 bcrybtpassword(u.password as string),
                 id
             ]);
@@ -88,7 +90,7 @@ export default class UsersModels {
     async deleteAllUser(): Promise<users[]> {
         try {
             const conn = await db.connect();
-            const sql = "DELETE  FROM users  ";
+            const sql = "DELETE  FROM users  RETURNING *";
             const resault = await conn.query(sql);
             conn.release();
             return resault.rows;
@@ -100,24 +102,25 @@ export default class UsersModels {
     //Athanticate Users
     async AuthanticateUsers(
         password: string,
-        firstName: string,
+        email: string,
         ){
             try {
                 const conn = await db.connect();
-                const sql = "SELECT password FROM users WHERE firstName = $1";
-                const results = conn.query(sql, [firstName]);
+                const sql = "SELECT password FROM users WHERE email = $1";
+                const results = conn.query(sql, [email]);
                 if ((await results).rows.length) {
-                    const { password: bcrybtpassword } = (await results).rows[0];
+                    const  {password:bcrybtpassword}  = (await results).rows[0];
                     const validationpass = BCrypt.compareSync(
-                        password + config.pp,
+                        `${password}${config.pp}`,
                         bcrybtpassword,
                     );
                     if (validationpass) {
                         const Filnalresault = conn.query(
-                            "SELECT * FROM users WHERE firstName = $1",
-                            [firstName],
+                            "SELECT * FROM users WHERE email = $1",
+                            [email],
                         );
                         conn.release();
+                        
                         return (await Filnalresault).rows[0];
                     } else {
                         throw new Error();

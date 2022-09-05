@@ -6,21 +6,24 @@ import config from '../configration';
 
 const errHandelling = (next: NextFunction) => {
     const err: Error = new Error('Sorry Your UserName Or Password is Not Valid to Login  And Use This Service');
-    err.status = 401
+    err.state = 401
     return next(err)
 }
 const AuthanticateMiddleware = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const auth = req.get('Authorization');
-        const Barer = auth?.split(" ")[0]
-        const token = auth?.split(" ")[1]
-        if (token && Barer === "Bearer") {
-            const returnjwt =jwt.verify(token, config.token as string) 
-            if (returnjwt) {
-                console.log(returnjwt);
-                next()
+        if (auth) {
+            const Barer = auth?.split(" ")[0]
+            const token = auth?.split(" ")[1]
+            if (token && Barer === "Bearer") {
+                const returnjwt = jwt.verify(token, config.token as string)
+                if (returnjwt) {
+                    next()
+                } else {
+                    errHandelling(next);
+                }
             } else {
-                errHandelling(next);
+                errHandelling(next)
             }
         } else {
             errHandelling(next)

@@ -1,5 +1,7 @@
+
 {
     "defaultEnv":{"ENV":"Main_Env"},
+
     "dev":{
         "driver":"pg",
         "user":{"ENV":"Database_user"},
@@ -8,6 +10,7 @@
         "port":{"ENV":"Database_port"},
         "password":{"ENV":"Database_password"}
     },
+    
     "test":{
         "driver":"pg",
         "user":{"ENV":"Database_user"},

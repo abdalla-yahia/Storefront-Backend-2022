@@ -1,6 +1,6 @@
 import {Request, Response, NextFunction } from 'express';
 import productsModel from '../models/products.models';
-import product from '../types/product.types';
+
 
 
 const pro =new productsModel()
@@ -10,12 +10,12 @@ export const CreatProduct = async (req: Request, res: Response, next: NextFuncti
     try {
         const newProduct = await pro.creatProduct(req.body);
         res.json({
-            status: "Success",
+            status: "Success To Create New Product 😄",
             data:{...newProduct}
         })
         
     } catch (error) {
-        throw new Error('')
+        next(error)
     }
 }
 
@@ -43,15 +43,14 @@ export const GetAllProducts = async (req: Request, res: Response, next: NextFunc
 // Get Specific Product 
 export const GetSpecificProduct = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const getPro = await pro.getSpecificProduct(req.params)
-        const size = Object.keys({...getPro}).length;
-        if (size > 0) {
+        const getPro = await pro.getSpecificProduct(req.params.id)
+        if ([getPro].length > 0) {
             res.json({
                 data:{...getPro}
             })
         } else {
             res.json({
-                message:"No Elements Found"
+                message:"No Elements Found 🙂"
             })
         }
     } catch (error) {
@@ -61,10 +60,11 @@ export const GetSpecificProduct = async (req: Request, res: Response, next: Next
 // DELETE Specific Product 
 export const DeleteSpecificProduct = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const delPro = await pro.deleteSpecificProduct(req.params)
+        const delPro = await pro.deleteSpecificProduct(req.params.id)
             res.json({
                 state:"Success ",
-                message:"Deleted Operation Successflly 🙂"
+                message: "Deleted Operation Successflly 🙂",
+                data:{...delPro}
             })
     } catch (error) {
         next(error)
@@ -76,7 +76,8 @@ export const DeleteAllProducts = async (req: Request, res: Response, next: NextF
         const delAllPro = await pro.deleteAllProducts()
         res.json({
             state: "Success ",
-            message: "Deleted Operation Successflly 🙂"
+            message: "Deleted Operation Successflly 🙂",
+            data:{...delAllPro}
         })
     } catch (error) {
         next(error)
@@ -99,7 +100,7 @@ export const UpdateSpecificProducts = async (req: Request, res: Response, next: 
 // Sort  Products 
 export const SortProducts = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const sortProduct = await pro.sortProducts(req.body)
+        const sortProduct = await pro.sortProducts(req.body.category)
             res.json({
                 state:"Success ",
                 message: "Sorting Operation Successflly 🙂",

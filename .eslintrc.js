@@ -17,11 +17,20 @@ module.exports = {
   },
   plugins: ['@typescript-eslint', 'prettier'],
   rules: {
-    'prettier/prettier': 1,
+    'prettier/prettier': [2,{
+        semi: 0,
+        singleQuote: true,
+        printWidth: 100,
+        bracketSpacing: true,
+        tabWidth: 2,
+        arrowParens: 'always',
+        trailingComma: 'none'
+      }],
     'linebreak-style': 0,
     quotes: 0,
     semi: 0,
       indent: 0,
-    "no-console":2
+    "@typescript-eslint/no-var-requires": 0,
+   "no-undef": 0
   },
 };
