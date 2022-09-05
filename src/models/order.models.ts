@@ -4,7 +4,7 @@ import product from '../types/product.types';
 import order from '../types/Order.types';
 
 
-    export default class OrdersModels {
+    class OrdersModels {
         //Create Order
         async createOrder(o: order): Promise<order> {
             try {
@@ -89,3 +89,5 @@ import order from '../types/Order.types';
             }
         }
     }
+
+export default OrdersModels;

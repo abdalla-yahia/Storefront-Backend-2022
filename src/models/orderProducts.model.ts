@@ -3,7 +3,7 @@ import db from '../databases/database';
 import orderProducts from '../types/orderProducts.types';
 
 
-export default class OrderProducts {
+    class OrderProducts {
     //Create A New OrderProducts
     async createOrderProducts(or:orderProducts): Promise<orderProducts> {
         try {
@@ -71,3 +71,5 @@ export default class OrderProducts {
         }
     }
 }
+
+export default OrderProducts;

@@ -1,7 +1,7 @@
 import product from '../types/product.types';
 import db from '../databases/database';
 
-export default class productsModels {
+	class productsModels {
 	//Create New Product
 	async creatProduct(p: product): Promise<product> {
 		try {
@@ -93,3 +93,5 @@ export default class productsModels {
 		}
 	}
 }
+
+export default productsModels;

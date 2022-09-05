@@ -4,13 +4,7 @@ import config from '../configration';
 import BCrypt from 'bcrypt';
 
 
-
-function bcrybtpassword(pass: string){
-    const salt = parseInt(config.salt as string)
-    return BCrypt.hashSync(`${pass}${config.pp}`,salt)
-}
-
-export default class UsersModels {
+    class UsersModels {
     //Create A New User
     async createUser(u: users) {
         try {
@@ -21,7 +15,7 @@ export default class UsersModels {
                 u.firstname,
                 u.lastname,
                 u.email,
-                bcrybtpassword(u.password as string),
+                BCrypt.hashSync(`${u.password}${config.pp}`,parseInt(config.salt as string)),
             ]);
             conn.release();
             return resault.rows[0];
@@ -52,7 +46,7 @@ export default class UsersModels {
                 u.firstname,
                 u.lastname,
                 u.email,
-                bcrybtpassword(u.password as string),
+                BCrypt.hashSync(`${u.password}${config.pp}`,parseInt(config.salt as string)),
                 id
             ]);
             conn.release();
@@ -133,3 +127,6 @@ export default class UsersModels {
             }
         }
 }
+
+
+export default UsersModels;
