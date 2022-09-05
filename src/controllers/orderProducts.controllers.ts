@@ -64,7 +64,7 @@ export const DeleteAllOrderProducts = async (_req: Request, res: Response, next:
     try {
         const delorderPro = await orPro.deleteAllOrderProducts()
         res.json({
-            state: "Done",
+            state: "DELETE All OrderProducts Done Successflly 😆",
             data: { ...delorderPro }
         });
     } catch (error) {

@@ -19,7 +19,7 @@ app.use(cors());
 
 app.get('/', function (_req: Request, res: Response,next:NextFunction) {
    try {
-     res.send('Hello World!')
+     res.send('Hello World! 😀')
 } catch (error) {
     next(error)
 }

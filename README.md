@@ -1,54 +1,122 @@
-# Storefront Backend Project
+# project Title : StoreFront BackEnd 
 
-## Getting Started
+## Contents :-
 
-This repo contains a basic Node and Express app to get you started in constructing an API. To get started, clone this repo and run `yarn` in your terminal at the project root.
+- [dist]
 
-## Required Technologies
-Your application must make use of the following libraries:
-- Postgres for the database
-- Node/Express for the application logic
-- dotenv from npm for managing environment variables
-- db-migrate from npm for migrations
-- jsonwebtoken from npm for working with JWTs
-- jasmine from npm for testing
+- -------[__tests__]
+- -------[controllere]
+- ----------(order.controllers.js)
+- ----------(orderProducts.controllers.js)
+- ----------(products.controllers.js)
+- ----------(users.controllers.js)
 
-## Steps to Completion
+- -------[database]
+- ----------(database.js)
+- -------[middlewares]
+- ----------(Auth.middleware.js)
+- ----------(Error.middleware.js)
+- -------[models]
+- ----------(order.models.js)
+- ----------(orderProducts.models.js)
+- ----------(products.models.js)
+- ----------(users.models.js)
+- --------[routes]
+- ----------[order-routes]
+- -----------(order.routes.js)
+- ----------[orderProducts-routes]
+- -----------(order.routes.js)
+- ----------[orderProducts-routes]
+- -----------(orderProducts.routes.js)
+- ----------[products-routes]
+- -----------(products.routes.js)
+- ----------(index.js)
+- -------[types]
+- -----------(Authanticate.types.js)
+- -----------(Error.types.js)
+- -----------(order.types.js)
+- -----------(orderProducts.types.js)
+- -----------(products.types.js)
+- -----------(users.types.js)
+- ----------(configratios.js)
+- ----------(server.js)
+- -------[migratios]
+- ----------[sql]
+- -------[node_module]
+- -------[spec]
+- ----------[support]
+- ----------(jasmine.json)
+- ---------------------------------------------------()
+- ---------------------------------------------------()
 
-### 1. Plan to Meet Requirements
+- ----[src]
+- -------[__tests__]
+- -------[controllere]
+- ----------(order.controllers.ts)
+- ----------(orderProducts.controllers.ts)
+- ----------(products.controllers.ts)
+- ----------(users.controllers.ts)
 
-In this repo there is a `REQUIREMENTS.md` document which outlines what this API needs to supply for the frontend, as well as the agreed upon data shapes to be passed between front and backend. This is much like a document you might come across in real life when building or extending an API. 
+- -------[database]
+- ----------(database.ts)
+- -------[middlewares]
+- ----------(Auth.middleware.ts)
+- ----------(Error.middleware.ts)
+- -------[models]
+- ----------(order.models.ts)
+- ----------(orderProducts.models.ts)
+- ----------(products.models.ts)
+- ----------(users.models.ts)
+- --------[routes]
+- ----------[order-routes]
+- -----------(order.routes.ts)
+- ----------[orderProducts-routes]
+- -----------(order.routes.ts)
+- ----------[orderProducts-routes]
+- -----------(orderProducts.routes.ts)
+- ----------[products-routes]
+- -----------(products.routes.ts)
+- ----------(index.ts)
+- -------[types]
+- -----------(Authanticate.types.ts)
+- -----------(Error.types.ts)
+- -----------(order.types.ts)
+- -----------(orderProducts.types.ts)
+- -----------(products.types.ts)
+- -----------(users.types.ts)
+- ----------(configratios.ts)
+- ----------(server.ts)
 
-Your first task is to read the requirements and update the document with the following:
-- Determine the RESTful route for each endpoint listed. Add the RESTful route and HTTP verb to the document so that the frontend developer can begin to build their fetch requests.    
-**Example**: A SHOW route: 'blogs/:id' [GET] 
+- -(.env)
+- -(.eslintrc.js)
+- -(.gitignore)
+- -(.prettierc)
 
-- Design the Postgres database tables based off the data shape requirements. Add to the requirements document the database tables and columns being sure to mark foreign keys.   
-**Example**: You can format this however you like but these types of information should be provided
-Table: Books (id:varchar, title:varchar, author:varchar, published_year:varchar, publisher_id:string[foreign key to publishers table], pages:number)
+- -(database.json)
 
-**NOTE** It is important to remember that there might not be a one to one ratio between data shapes and database tables. Data shapes only outline the structure of objects being passed between frontend and API, the database may need multiple tables to store a single shape. 
+- -(package-lock.json)
+- -(package.json)
 
-### 2.  DB Creation and Migrations
+- -(tsconfig.json)
+ 
+- -(READMEE.md)
 
-Now that you have the structure of the databse outlined, it is time to create the database and migrations. Add the npm packages dotenv and db-migrate that we used in the course and setup your Postgres database. If you get stuck, you can always revisit the database lesson for a reminder. 
+## Description
 
-You must also ensure that any sensitive information is hashed with bcrypt. If any passwords are found in plain text in your application it will not pass.
+- This project allows you to build an online store and allows you to control adding, deleting, modifying and fetching all the data. It also allows the user to maintain perfect confidentiality of his data by encrypting the user's password as well as the registration and modification process asking to be allowed to perform the operations available in the application
 
-### 3. Models
 
-Create the models for each database table. The methods in each model should map to the endpoints in `REQUIREMENTS.md`. Remember that these models should all have test suites and mocks.
+## How it work
+- to run the server---------------------------[npm run start  ]
+- to run test---------------------------------[npm run test   ]
+- to build the javascript files---------------[npm run build  ]
+- to run build js-fils && run server----------[npm run start: ]
 
-### 4. Express Handlers
 
-Set up the Express handlers to route incoming requests to the correct model method. Make sure that the endpoints you create match up with the enpoints listed in `REQUIREMENTS.md`. Endpoints must have tests and be CORS enabled. 
+## Built with
 
-### 5. JWTs
+- [Abdalla-Yahia-Kamell](abdalla_y2007@yahoo.com)
 
-Add JWT functionality as shown in the course. Make sure that JWTs are required for the routes listed in `REQUIUREMENTS.md`.
+### Date
 
-### 6. QA and `README.md`
-
-Before submitting, make sure that your project is complete with a `README.md`. Your `README.md` must include instructions for setting up and running your project including how you setup, run, and connect to your database. 
-
-Before submitting your project, spin it up and test each endpoint. If each one responds with data that matches the data shapes from the `REQUIREMENTS.md`, it is ready for submission!
+- [Mon Sep 5 2022]

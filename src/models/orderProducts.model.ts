@@ -7,7 +7,6 @@ export default class OrderProducts {
     //Create A New OrderProducts
     async createOrderProducts(or:orderProducts): Promise<orderProducts> {
         try {
-
             const conn = await db.connect()
             const sql = "INSERT INTO orderProducts (quantity,order_id,product_id) VALUES ($1,$2,$3) RETURNING *";
             const res = await conn.query(sql, [

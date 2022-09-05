@@ -72,10 +72,10 @@ import order from '../types/Order.types';
             }
         }
         //Update Specific Order
-        async updateSpecificOrder(o:order, id:string): Promise<order> {
+        async updateSpecificOrder(o:order, id:string): Promise<order[]> {
             try {
                 const conn = await db.connect();
-                const sql = "UPDATE  orders SET order_name = $1, quantity=$2, order_status=$3 WHERE id =$4 RETURNING *";
+                const sql = ' UPDATE  orders SET order_name = $1, quantity=$2, order_status=$3 WHERE id =$4 RETURNING * ';
                 const result = await conn.query(sql, [
                     o.order_name,
                     o.quantity,
@@ -83,7 +83,7 @@ import order from '../types/Order.types';
                     id
                 ])
                 conn.release()
-                return result.rows[0]
+                return result.rows
             } catch (error) {
                 throw new Error('Opps..Cant Update This Order 😬')
             }

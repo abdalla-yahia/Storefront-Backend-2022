@@ -76,7 +76,7 @@ export const DeleteSpecificOrder = async (req: Request, res: Response, next: Nex
         if ([...delSporder].length > 0) {
             
             res.json({
-                state: `This is all orders.. `,
+                state: `Delete Order Succsseflly 😅 `,
                 data:{...delSporder}
             })
         } else {
