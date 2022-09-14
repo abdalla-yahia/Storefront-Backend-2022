@@ -1,5 +1,9 @@
 # Table of contents
 
+- [Schema](#schema)
+
+- [Tables](#tables)
+
 - [Env](#env)
 
 - [How it start](#how-start-this)
@@ -895,8 +899,142 @@ token = this-is-my-token
     token = this-is-my-token
 
 
+- ## Schema
+- ### Users-Schema
+```sql
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+CREATE TABLE users(
+                    id uuid DEFAULT uuid_generate_v4() PRIMARY KEY,
+                    firstname VARCHAR(255) NOT NULL,
+                    lastname VARCHAR(250) NOT NULL,
+                    email VARCHAR (60) UNIQUE,
+                    password VARCHAR(200) NOT NULL
+                    );
+```
+- ### Products-Schema
+```sql 
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+CREATE TABLE products (
+                        id uuid DEFAULT uuid_generate_v4() PRIMARY KEY,
+                        name VARCHAR(255) NOT NULL, 
+                        price INTEGER NOT NULL, 
+                        category VARCHAR(250) 
+                        );
+```
+- ### Orders-Schema
+
+```sql
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+CREATE TABLE orders(
+                    id uuid DEFAULT uuid_generate_v4() PRIMARY KEY,
+                    order_name VARCHAR(200) NOT NULL,
+                    quantity INTEGER ,
+                    order_status VARCHAR(200),
+                    user_id uuid DEFAULT uuid_generate_v4() REFERENCES users(id) 
+                    );
+
+```
+
+- ### OrderProducts-Schema
+```sql
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+CREATE TABLE orderProducts (
+                            id uuid DEFAULT uuid_generate_v4() PRIMARY KEY,
+                            quantity INTEGER ,
+                            order_id uuid DEFAULT uuid_generate_v4()  REFERENCES orders(id),
+                            product_id uuid DEFAULT uuid_generate_v4() REFERENCES products(id)
+                            );
+```
+
+- ## Tables
+
+```sql
+
+ Schema |     Name      | Type  |  Owner
+--------+---------------+-------+----------
+ public | migrations    | table | postgres
+ public | orderproducts | table | postgres
+ public | orders        | table | postgres
+ public | products      | table | postgres
+ public | users         | table | postgres
+(5 rows)
+
+```
+
+- ### Users-Table
+
+```sql
+
+                              Table "public.users"
+  Column   |          Type          | Collation | Nullable |      Default
+-----------+------------------------+-----------+----------+--------------------
+ id        | uuid                   |           | not null | uuid_generate_v4()
+ firstname | character varying(255) |           | not null |
+ lastname  | character varying(250) |           | not null |
+ email     | character varying(60)  |           |          |
+ password  | character varying(200) |           | not null |
+Indexes:
+    "users_pkey" PRIMARY KEY, btree (id)
+    "users_email_key" UNIQUE CONSTRAINT, btree (email)
+Referenced by:
+    TABLE "orders" CONSTRAINT "orders_user_id_fkey" FOREIGN KEY (user_id) REFERENCES users(id)
+
+```
+- ### Products-Table
+
+```sql
+
+                            Table "public.products"
+  Column  |          Type          | Collation | Nullable |      Default
+----------+------------------------+-----------+----------+--------------------
+ id       | uuid                   |           | not null | uuid_generate_v4()
+ name     | character varying(255) |           | not null |
+ price    | integer                |           | not null |
+ category | character varying(250) |           |          |
+Indexes:
+    "products_pkey" PRIMARY KEY, btree (id)
+Referenced by:
+    TABLE "orderproducts" CONSTRAINT "orderproducts_product_id_fkey" FOREIGN KEY (product_id) REFERENCES products(id)
+
+```
+- ### Orders-Table
+
+```sql
+                               Table "public.orders"
+    Column    |          Type          | Collation | Nullable |      Default
+--------------+------------------------+-----------+----------+--------------------
+ id           | uuid                   |           | not null | uuid_generate_v4()
+ order_name   | character varying(200) |           | not null |
+ quantity     | integer                |           |          |
+ order_status | character varying(200) |           |          |
+ user_id      | uuid                   |           |          | uuid_generate_v4()
+Indexes:
+    "orders_pkey" PRIMARY KEY, btree (id)
+Foreign-key constraints:
+    "orders_user_id_fkey" FOREIGN KEY (user_id) REFERENCES users(id)
+Referenced by:
+    TABLE "orderproducts" CONSTRAINT "orderproducts_order_id_fkey" FOREIGN KEY (order_id) REFERENCES orders(id)
 
 
+```
+- ### OrderProducts-Table
+
+```sql
+                   Table "public.orderproducts"
+   Column   |  Type   | Collation | Nullable |      Default
+------------+---------+-----------+----------+--------------------
+ id         | uuid    |           | not null | uuid_generate_v4()
+ quantity   | integer |           |          |
+ order_id   | uuid    |           |          | uuid_generate_v4()
+ product_id | uuid    |           |          | uuid_generate_v4()
+Indexes:
+    "orderproducts_pkey" PRIMARY KEY, btree (id)
+Foreign-key constraints:
+    "orderproducts_order_id_fkey" FOREIGN KEY (order_id) REFERENCES orders(id)
+    "orderproducts_product_id_fkey" FOREIGN KEY (product_id) REFERENCES products(id)
+
+
+```
 ## How it work
 - to run the server---------------------------[npm run start  ]
 - to run test---------------------------------[npm run test   ]
