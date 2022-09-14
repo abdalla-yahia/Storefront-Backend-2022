@@ -1,5 +1,6 @@
-
 # Table of contents
+
+- [Env](#env)
 
 - [How it start](#how-start-this)
 
@@ -875,6 +876,24 @@ token = this-is-my-token
   }
 }
 ```
+
+ - ## .env 
+      PORT = 3001
+
+    Main_Env = dev
+
+    Database_user = postgres
+    Database_host = localhost
+    Database_port = 3000
+    Database_name = storefront
+    Database_name_test = storefront_test
+    Database_password = 2201079
+
+    Bcrypt_password = this-is-my-pass
+    Salt = 10
+
+    token = this-is-my-token
+
 
 
 
